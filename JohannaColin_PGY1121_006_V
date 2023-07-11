@@ -1,0 +1,83 @@
+import datetime
+
+# Precios de los departamentos
+precios = {"A": 3800, "B": 3000, "C": 2800, "D": 3500}
+
+# Inicializar los departamentos
+departamentos = {f"{tipo}{piso}": None for piso in range(1, 11) for tipo in "ABCD"}
+
+# Inicializar las ventas
+ventas = {"A": 0, "B": 0, "C": 0, "D": 0}
+
+# Inicializar los compradores
+compradores = []
+
+def comprar_departamento():
+    while True:
+        depto = input("Ingrese el departamento a comprar (ejemplo: A1): ").upper()
+        if depto in departamentos:
+            if departamentos[depto] is None:
+                run = input("Ingrese el RUN del comprador (sin dígito verificador): ")
+                departamentos[depto] = run
+                compradores.append(run)
+                ventas[depto[0]] += 1 
+                print("la operacion se ha realizado correctamente.")
+                break
+            else:
+                print("El departamento ya ha sido vendido. Por favor, seleccione otro.")
+        else:
+            print("El departamento ingresado no existe. Por favor, intente de nuevo.")
+
+def mostrar_departamentos():
+    for piso in range(10, 0, -1):
+        print(f"Piso {piso}", end="\t")
+        for tipo in "ABCD":
+            depto = f"{tipo}{piso}"
+            if departamentos[depto] is None:
+                print(depto, end="\t")
+            else:
+                print("X", end="\t")
+        print()
+
+def ver_compradores():
+    for run in sorted(compradores):
+        print(run)
+
+def mostrar_ventas():
+    total = 0
+    for tipo, cantidad in ventas.items():
+        subtotal = cantidad * precios[tipo]
+        total += subtotal 
+        print("Tipo {tipo} {precios[tipo]} UF\t{cantidad}\t{subtotal} UF")
+    print(f"TOTAL\t\t\t{sum(ventas.values())}\t{total} UF")
+
+def salir():
+    print("Gracias por usar el sistema. ¡Hasta pronto!")
+    print("Nombre Apellido")
+    print(datetime.datetime.now().strftime("%d/%m/%Y"))
+
+def menu():
+    while True:
+        print("\n1. Comprar departamento")
+        print("2. Mostrar departamentos disponibles")
+        print("3. Ver listado de compradores")
+        print("4. Mostrar ventas totales")
+        print("5. Salir")
+        opcion = input("Seleccione una opción: ")
+        if opcion == "1":
+          comprar_departamento()
+        elif opcion == "2":
+            mostrar_departamentos()
+        elif opcion == "3":
+            ver_compradores()
+        elif opcion == "4":
+            mostrar_ventas()
+        elif opcion == "5":
+            salir()
+            break
+        else:
+            print("No esta Disponible. Por favor, intente de nuevo.")
+
+if __name__ == "__main__":
+    menu()
+        
