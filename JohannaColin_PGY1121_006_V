@@ -52,7 +52,7 @@ def mostrar_ventas():
     print(f"TOTAL\t\t\t{sum(ventas.values())}\t{total} UF")
 
 def salir():
-    print("Gracias por usar el sistema. ¡Hasta pronto!")
+    print("Gracias por su preferencia. ¡Hasta pronto!")
     print("Nombre Apellido")
     print(datetime.datetime.now().strftime("%d/%m/%Y"))
 
